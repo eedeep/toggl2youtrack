@@ -1,0 +1,19 @@
+title = "Toggl 2 Youtrack"
+
+[toggl]
+base_api_url = "https://www.toggl.com/api/v6/"
+approved_project_names = ["Foo", "Bar"]
+
+[youtrack]
+base_api_url = "https://yourcustomsubdomain.myjetbrains.com/youtrack/rest/"
+
+[user_credentials]
+    [user_credentials.ronnie]
+    toggl_api_key = "2398472kljhakljdfhasd0232"
+    youtrack_username = "ronnie"
+    youtrack_password = "ronniessecretpassword"
+
+    [user_credentials.roger]
+    toggl_api_key = "2309498723034923450dfsd84"
+    youtrack_username = "roger"
+    youtrack_password = "rogerspassword"

@@ -2,6 +2,7 @@ import datetime
 import operator
 import itertools
 import re
+import os
 import time
 import tomlpython
 import logging
@@ -20,8 +21,11 @@ logger.addHandler(handler)
 
 BEGINNING_OF_TIME = datetime.datetime(year=1970, month=1, day=1)
 
-with open("config.toml") as conffile:
-     config = tomlpython.parse(conffile.read())
+config_file_path = os.path.join(os.path.realpath(os.path.dirname(os.path.realpath(__file__))), "config.toml")
+print config_file_path
+
+with open(config_file_path) as config_file:
+     config = tomlpython.parse(config_file.read())
 
 
 def login_to_youtrack(username, password):

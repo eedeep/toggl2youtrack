@@ -22,7 +22,6 @@ logger.addHandler(handler)
 BEGINNING_OF_TIME = datetime.datetime(year=1970, month=1, day=1)
 
 config_file_path = os.path.join(os.path.realpath(os.path.dirname(os.path.realpath(__file__))), "config.toml")
-print config_file_path
 
 with open(config_file_path) as config_file:
      config = tomlpython.parse(config_file.read())
@@ -98,14 +97,16 @@ for drone_name, drone_details in config['user_credentials'].iteritems():
             if 'project' in entry:
                 if entry['project']['name'].lower() in \
                     [p.lower() for p in config['toggl']['approved_project_names']]:
-                    result = youtrack_fingerprint.match(entry['description'])
-                    if result:
-                        youtrack_tasks.append(dict(
-                            youtrack_task_id=result.groupdict()['youtrack_task_id'],
-                            toggl_id=entry['id'],
-                            description=entry['description'],
-                            duration=entry['duration'])
-                        )
+                    # Currently toggld on tasks have a negative duration - we want to ignore them
+                    if entry['duration'] > 0:
+                        result = youtrack_fingerprint.match(entry['description'])
+                        if result:
+                            youtrack_tasks.append(dict(
+                                youtrack_task_id=result.groupdict()['youtrack_task_id'],
+                                toggl_id=entry['id'],
+                                description=entry['description'],
+                                duration=entry['duration'])
+                            )
         except KeyError as e:
             logger.error(e)
 

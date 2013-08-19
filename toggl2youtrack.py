@@ -140,7 +140,7 @@ for drone_name, drone_details in config['user_credentials'].iteritems():
                     time_entries_to_add.append(dict(
                         description='[{toggl_id}] {desc}'.format(
                             toggl_id=time_entry['toggl_id'],
-                            desc=time_entry['description'],
+                            desc=time_entry['description'].encode('utf-8'),
                         ),
                         duration_in_minutes=time_entry_minutes
                     ))

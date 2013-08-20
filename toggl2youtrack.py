@@ -44,6 +44,7 @@ def get_youtrack_time_entries(cookie_header, task_id):
     return BeautifulStoneSoup(result.content)
 
 
+
 def add_time_entry_to_youtrack(drone_name, cookie_header, task_id, time_entry):
     xml_payload = '''
         <workItem>

@@ -36,6 +36,7 @@ def login_to_youtrack(username, password):
     return result.headers['set-cookie']
 
 
+
 def get_youtrack_time_entries(cookie_header, task_id):
     result = requests.get(
         '{base_api_url}issue/{task_id}/timetracking/workitem/'.format(base_api_url=config['youtrack']['base_api_url'], task_id=task_id),

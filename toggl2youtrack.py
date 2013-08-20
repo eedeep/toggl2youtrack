@@ -7,6 +7,8 @@ import time
 import tomlpython
 import logging
 
+from xml.sax.saxutils import escape
+
 from BeautifulSoup import BeautifulStoneSoup
 import requests
 
@@ -49,7 +51,7 @@ def add_time_entry_to_youtrack(drone_name, cookie_header, task_id, time_entry):
             <duration>{duration}</duration>
             <description>{description}</description>
         </workItem>
-    '''.format(date=str(int(time.time() * 1000)), duration=time_entry['duration_in_minutes'], description=time_entry['description'])
+    '''.format(date=str(int(time.time() * 1000)), duration=time_entry['duration_in_minutes'], description=escape(time_entry['description']))
 
     response = requests.post(
         '{base_api_url}issue/{task_id}/timetracking/workitem/'.format(base_api_url=config['youtrack']['base_api_url'], task_id=task_id),
